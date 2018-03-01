@@ -14,10 +14,10 @@ import java.awt.Point;
 
 
 public class Main extends Application {
-	final int dimension = 10;
-	final int scalingFactor = 50;
-	Map map = new Map();
-	Ship ship = new Ship(map);
+	private final int dimension = 10;
+	private final int scalingFactor = 50;
+	private Map map = Map.getInstance();
+	private Ship ship = new Ship(map);
 	private ImageView shipImageView;
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),
 																	50, 50, true, true);

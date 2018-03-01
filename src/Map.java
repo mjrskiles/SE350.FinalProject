@@ -5,10 +5,21 @@ import java.util.Random;
 
 public class Map {
 	private int[][] map = new int[10][10];
+	private static Map uniqueInstance;
 
-	public Map() {
+	private Map() {
 		populateMap();
 		createPirates(2);
+	}
+
+	public static Map getInstance() {
+		if(uniqueInstance != null) {
+			return uniqueInstance;
+		}
+		else {
+			uniqueInstance = new Map();
+			return uniqueInstance;
+		}
 	}
 	/*
 	* Pirates will be added to the map after the rest of it is generated.
