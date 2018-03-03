@@ -13,6 +13,7 @@ public class BFSStrategy implements PursuitStrategy {
     public Point getNextPosition(Point currentPosition, Point targetPosition) {
         final int[][] map = oceanMap.getMap();
         List<Point> shortestPath = performBFS(map, currentPosition, targetPosition);
+        printPointList(shortestPath);
         if (shortestPath != null && !shortestPath.isEmpty()) {
             return shortestPath.remove(0);
         }
@@ -86,5 +87,13 @@ public class BFSStrategy implements PursuitStrategy {
             neighbors.add(new Point(x - 1, y));
         }
         return neighbors;
+    }
+
+    private void printPointList(List<Point> ps) {
+        String str = "The path is: ";
+        for (Point p : ps) {
+            str += "(" + p.x + ", " + p.y + ") ";
+        }
+        System.out.println(str);
     }
 }
