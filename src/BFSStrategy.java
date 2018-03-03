@@ -15,7 +15,15 @@ public class BFSStrategy implements PursuitStrategy {
         List<Point> shortestPath = performBFS(map, currentPosition, targetPosition);
         printPointList(shortestPath);
         if (shortestPath != null && !shortestPath.isEmpty()) {
-            return shortestPath.remove(0);
+            //The next closest point is the 2nd element in the shortest path list.
+            Point next;
+            if (shortestPath.size() > 1) {
+                next = shortestPath.get(1);
+            }
+            else {
+                next = shortestPath.get(0);
+            }
+            return next;
         }
         else return currentPosition;
     }
@@ -63,6 +71,7 @@ public class BFSStrategy implements PursuitStrategy {
             shortestPath.add(parent);
             parent = searchPathMap.get(parent);
         }
+        shortestPath.add(parent);
         Collections.reverse(shortestPath);
         return shortestPath;
     }
