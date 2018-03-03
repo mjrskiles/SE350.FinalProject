@@ -56,11 +56,11 @@ public class BFSStrategy implements PursuitStrategy {
     }
 
     private List<Point> constructPath(HashMap<Point, Point> searchPathMap, Point start, Point target) {
-        Stack<Point> shortestPath = new Stack<>();
+        List<Point> shortestPath = new ArrayList<>();
 
         Point parent = searchPathMap.get(target);
         while(parent != null) {
-            shortestPath.push(parent);
+            shortestPath.add(parent);
             parent = searchPathMap.get(parent);
         }
         return shortestPath;
