@@ -12,20 +12,24 @@ public class BFSStrategy implements PursuitStrategy {
     @Override
     public Point getNextPosition(Point currentPosition, Point targetPosition) {
         final int[][] map = oceanMap.getMap();
+
         List<Point> shortestPath = performBFS(map, currentPosition, targetPosition);
-        printPointList(shortestPath);
+//        printPointList(shortestPath);
+
+        Point next = currentPosition;
         if (shortestPath != null && !shortestPath.isEmpty()) {
             //The next closest point is the 2nd element in the shortest path list.
-            Point next;
             if (shortestPath.size() > 1) {
                 next = shortestPath.get(1);
             }
             else {
                 next = shortestPath.get(0);
             }
-            return next;
         }
-        else return currentPosition;
+        if (oceanMap.isOcean(next.x, next.y))
+            return next;
+        else
+            return currentPosition;
     }
 
     //Breadth first search pursuit strategy
@@ -63,6 +67,7 @@ public class BFSStrategy implements PursuitStrategy {
         return null;
     }
 
+    //Builds a list of points that represents the shortest path from the start point to the target point.
     private List<Point> constructPath(HashMap<Point, Point> searchPathMap, Point start, Point target) {
         List<Point> shortestPath = new ArrayList<>();
         shortestPath.add(target);

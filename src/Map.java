@@ -59,6 +59,9 @@ public class Map {
 	}
 
 	public boolean isOcean(int x, int y) {
-		return (map[y][x] == CellTypes.ocean());
+		boolean validIndex = false;
+		if (x >= 0 && y >= 0 && x < map[0].length && y < map.length)
+			validIndex = true;
+		return (validIndex && map[y][x] == CellTypes.ocean());
 	}
 }
