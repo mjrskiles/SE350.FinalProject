@@ -57,4 +57,8 @@ public class Map {
 	public int[][] getMap() {
 		return map;
 	}
+
+	public boolean isOcean(int x, int y) {
+		return (map[y][x] == CellTypes.ocean());
+	}
 }
