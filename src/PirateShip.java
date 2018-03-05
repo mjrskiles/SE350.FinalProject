@@ -36,7 +36,12 @@ public class PirateShip implements Observer {
       return position;
     }
 
-    public void setImageView(ImageView iv) { pirateImageView = iv; }
+    public void setImageView(ImageView iv) {
+        pirateImageView = iv;
+        updateImageView();
+    }
+
+    public ImageView getImageView() { return pirateImageView; }
 
     public void update(Observable obs, Object obj) {
       Point columbusLocation = columbus.getLocation();

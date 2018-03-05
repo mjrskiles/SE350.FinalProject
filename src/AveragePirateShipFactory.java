@@ -1,9 +1,12 @@
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
 
 public class AveragePirateShipFactory extends PirateShipFactory {
-    public AveragePirateShipFactory(AnchorPane root, Ship columbus, Map map) { super(root, columbus, map); }
+    public AveragePirateShipFactory(Ship columbus, Map map) { super(columbus, map); }
 
     public PirateShip createPirateShip(int x, int y) {
-        return new AveragePirateShip(columbus, map.getMap());
+        PirateShip ps = new AveragePirateShip(columbus, map.getMap());
+        ps.setLocation(x, y);
+        ps.setImageView(new ImageView(createNewImage()));
+        return ps;
     }
 }
