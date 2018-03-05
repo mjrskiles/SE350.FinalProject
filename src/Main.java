@@ -21,7 +21,7 @@ public class Main extends Application {
 	private ImageView shipImageView;
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),
 																	50, 50, true, true);
-  private Image pirateImage = new Image(getClass().getResource("pirateShip.png").toExternalForm(),
+    private Image pirateImage = new Image(getClass().getResource("pirateShip.png").toExternalForm(),
 																	50, 50, true, true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private List<ImageView>  pirateImageViews = new LinkedList<ImageView>();
@@ -88,8 +88,8 @@ public class Main extends Application {
 		PirateShip pirate = new PirateShip(ship, map.getMap());
 		pirate.setLocation(x, y);
 		pirates.add(pirate);
+		pirate.setImageView(pirateImageView);
 		pirateImageViews.add(pirateImageView);
-
 	}
 
 	/*
