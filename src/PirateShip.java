@@ -6,6 +6,7 @@ public class PirateShip implements Observer {
     private Point position;
     private Ship columbus;
     private int[][] map;
+    private PursuitStrategy strategy;
 
     public PirateShip(Ship columbus, int[][] map) {
       // Set Observable
@@ -15,6 +16,8 @@ public class PirateShip implements Observer {
       // get copy of Map
       this.map = map;
     }
+
+    public void setStrategy(PursuitStrategy strategy) { this.strategy = strategy; }
 
     public void setLocation(int x, int y) {
       position = new Point(x, y);
