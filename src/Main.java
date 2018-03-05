@@ -22,7 +22,7 @@ public class Main extends Application {
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),
 																	50, 50, true, true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
-	private AveragePirateShipFactory averagePirateFactory = new AveragePirateShipFactory(ship, map);
+	private PirateShipFactory averagePirateFactory = new AveragePirateShipFactory(ship, map);
 
 	private void startSailing(Scene scene) {
 		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
