@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -7,10 +6,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
+
 import java.util.List;
 import java.util.LinkedList;
-import java.awt.Point;
 
 
 public class Main extends Application {
@@ -21,41 +19,29 @@ public class Main extends Application {
 	private ImageView shipImageView;
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),
 																	50, 50, true, true);
-  private Image pirateImage = new Image(getClass().getResource("pirateShip.png").toExternalForm(),
-																	50, 50, true, true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
-	private List<ImageView>  pirateImageViews = new LinkedList<ImageView>();
+	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
 
 	private void startSailing(Scene scene) {
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent e) {
-				switch(e.getCode()) {
-					case RIGHT:
-						ship.goEast();
-						break;
-					case LEFT:
-						ship.goWest();
-						break;
-					case DOWN:
-						ship.goSouth();
-						break;
-					case UP:
-						ship.goNorth();
-						break;
-					default:
-						break;
-				}
-				shipImageView.setX(ship.getLocation().x * scalingFactor);
-				shipImageView.setY(ship.getLocation().y * scalingFactor);
-
-				int counter = 0;
-				for(ImageView pirateImageView : pirateImageViews) {
-					PirateShip pirate = pirates.get(counter);
-					pirateImageView.setX(pirate.getLocation().x * scalingFactor);
-					pirateImageView.setY(pirate.getLocation().y * scalingFactor);
-					counter++;
-				}
-		}
+		scene.setOnKeyPressed((e) -> {
+			switch(e.getCode()) {
+				case RIGHT:
+					ship.goEast();
+					break;
+				case LEFT:
+					ship.goWest();
+					break;
+				case DOWN:
+					ship.goSouth();
+					break;
+				case UP:
+					ship.goNorth();
+					break;
+				default:
+					break;
+			}
+			shipImageView.setX(ship.getLocation().x * scalingFactor);
+			shipImageView.setY(ship.getLocation().y * scalingFactor);
 		});
 	}
 
@@ -82,14 +68,8 @@ public class Main extends Application {
   }
 
 	private void createPirate(AnchorPane root, int x, int y) {
-		ImageView pirateImageView = new ImageView(pirateImage);
-		pirateImageView.setX(x * scalingFactor);
-		pirateImageView.setY(y * scalingFactor);
-		PirateShip pirate = new PirateShip(ship, map.getMap());
-		pirate.setLocation(x, y);
+		PirateShip pirate = pirateFactory.createPirateShip(x, y);
 		pirates.add(pirate);
-		pirateImageViews.add(pirateImageView);
-
 	}
 
 	/*
@@ -97,8 +77,9 @@ public class Main extends Application {
 	* have been. Otherwise they won't show up.
 	*/
 	private void addPirates(AnchorPane root) {
-		for(ImageView pirateImageView : pirateImageViews) {
-			root.getChildren().add(pirateImageView);
+		for(PirateShip pirate : pirates) {
+			root.getChildren().add(pirate.getImageView());
+			System.out.println("Pirate added");
 		}
 	}
 
@@ -136,11 +117,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
+			pirateFactory.setImageFromPath("pirateShip.png");
 			AnchorPane root = new AnchorPane();
 			Scene scene = new Scene(root,500,500);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Ocean");
-			drawMap(map.getMap(), root); // everything else is rendered lower than pirate
+			drawMap(map.getMap(), root); // everything else is rendered before pirate
 			addPirates(root); // just below ship's Z-index
 			loadShipImage(root); // highest level Z-index
 			primaryStage.show();
@@ -149,6 +131,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setFactory(PirateShipFactory factory) {
+		pirateFactory = factory;
 	}
 
 	public static void main(String[] args) {
