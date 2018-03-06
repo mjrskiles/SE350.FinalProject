@@ -1,5 +1,4 @@
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
@@ -7,10 +6,9 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyEvent;
+
 import java.util.List;
 import java.util.LinkedList;
-import java.awt.Point;
 
 
 public class Main extends Application {
@@ -22,30 +20,28 @@ public class Main extends Application {
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),
 																	50, 50, true, true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
-	private PirateShipFactory averagePirateFactory = new AveragePirateShipFactory(ship, map);
+	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
 
 	private void startSailing(Scene scene) {
-		scene.setOnKeyPressed(new EventHandler<KeyEvent>() {
-			public void handle(KeyEvent e) {
-				switch(e.getCode()) {
-					case RIGHT:
-						ship.goEast();
-						break;
-					case LEFT:
-						ship.goWest();
-						break;
-					case DOWN:
-						ship.goSouth();
-						break;
-					case UP:
-						ship.goNorth();
-						break;
-					default:
-						break;
-				}
-				shipImageView.setX(ship.getLocation().x * scalingFactor);
-				shipImageView.setY(ship.getLocation().y * scalingFactor);
-		}
+		scene.setOnKeyPressed((e) -> {
+			switch(e.getCode()) {
+				case RIGHT:
+					ship.goEast();
+					break;
+				case LEFT:
+					ship.goWest();
+					break;
+				case DOWN:
+					ship.goSouth();
+					break;
+				case UP:
+					ship.goNorth();
+					break;
+				default:
+					break;
+			}
+			shipImageView.setX(ship.getLocation().x * scalingFactor);
+			shipImageView.setY(ship.getLocation().y * scalingFactor);
 		});
 	}
 
@@ -72,7 +68,7 @@ public class Main extends Application {
   }
 
 	private void createPirate(AnchorPane root, int x, int y) {
-		PirateShip pirate = averagePirateFactory.createPirateShip(x, y);
+		PirateShip pirate = pirateFactory.createPirateShip(x, y);
 		pirates.add(pirate);
 	}
 
@@ -121,12 +117,12 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			averagePirateFactory.setImageFromPath("pirateShip.png");
+			pirateFactory.setImageFromPath("pirateShip.png");
 			AnchorPane root = new AnchorPane();
 			Scene scene = new Scene(root,500,500);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Ocean");
-			drawMap(map.getMap(), root); // everything else is rendered lower than pirate
+			drawMap(map.getMap(), root); // everything else is rendered before pirate
 			addPirates(root); // just below ship's Z-index
 			loadShipImage(root); // highest level Z-index
 			primaryStage.show();
@@ -135,6 +131,10 @@ public class Main extends Application {
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void setFactory(PirateShipFactory factory) {
+		pirateFactory = factory;
 	}
 
 	public static void main(String[] args) {
