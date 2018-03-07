@@ -6,6 +6,8 @@ import java.util.Random;
 public class Ship extends Observable {
 	private Point position;
 	private Map map;
+	public boolean hasTreasure = false;
+	public boolean hitPirate = false;
 
 	public Ship(Map map) {
 		Random random = new Random();
@@ -29,9 +31,6 @@ public class Ship extends Observable {
 		setChanged();
 		notifyObservers();
 	}
-
-	public boolean hasTreasure = false;
-	public boolean hitPirate = false;
 
 	public void goEast() {
 		// go right

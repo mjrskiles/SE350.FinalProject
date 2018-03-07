@@ -30,6 +30,10 @@ public class PirateShip implements Observer {
 
     private void move(int x, int y) {
       position.move(x, y);
+      map[y][x] = CellTypes.pirate();
+      if(getLocation().equals(columbus.getLocation())) {
+          columbus.hitPirate = true;
+      }
     }
 
     public Point getLocation() {
@@ -44,7 +48,6 @@ public class PirateShip implements Observer {
     public ImageView getImageView() { return pirateImageView; }
 
     public void update(Observable obs, Object obj) {
-      Point columbusLocation = columbus.getLocation();
       Point nextPosition = strategy.getNextPosition(getLocation(), columbus.getLocation());
       move((int)nextPosition.getX(), (int)nextPosition.getY());
       updateImageView();

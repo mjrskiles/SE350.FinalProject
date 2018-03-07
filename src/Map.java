@@ -62,6 +62,10 @@ public class Map {
 		return map;
 	}
 
+	public void updateCell(int x, int y, int type) {
+		map[y][x] = type;
+	}
+
 	public boolean isOcean(int x, int y) {
 		boolean validIndex = false;
 		if (x >= 0 && y >= 0 && x < map[0].length && y < map.length)
