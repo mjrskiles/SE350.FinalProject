@@ -6,6 +6,9 @@ import java.util.Random;
 public class Ship extends Observable {
 	private Point position;
 	private Map map;
+	public boolean hasTreasure = false;
+	public boolean hitPirate = false;
+	public boolean hitMonster = false;
 
 	public Ship(Map map) {
 		Random random = new Random();
@@ -33,39 +36,70 @@ public class Ship extends Observable {
 	public void goEast() {
 		// go right
 		final int[][] grid  = map.getMap();
-    final int bounds = grid[0].length;
+		final int bounds = grid[0].length;
 
-		if(position.x + 1 < bounds  && grid[position.y][position.x + 1] == CellTypes.ocean()) {
-			move(position.x + 1, position.y);
+		if(position.x + 1 < bounds) {
+			if(grid[position.y][position.x + 1] == CellTypes.ocean()) {
+				move(position.x + 1, position.y);
+			}
+			else if(grid[position.y][position.x + 1] == CellTypes.treasure()) {
+				hasTreasure = true;
+			}
+			else if(grid[position.y][position.x + 1] == CellTypes.pirate()){
+				hitPirate = true;
+			}
 		}
 	}
 
 	public void goWest() {
-		// go left
-    final int[][] grid = map.getMap();
-    final int bounds = grid[0].length;
 
-		if(position.x - 1 >= 0 && grid[position.y][position.x - 1] == CellTypes.ocean()) {
-			move(position.x - 1, position.y);
+		final int[][] grid = map.getMap();
+
+		if(position.x - 1 >= 0){
+			if(grid[position.y][position.x - 1] == CellTypes.ocean()) {
+				move(position.x - 1, position.y);
+			}
+			else if(grid[position.y][position.x - 1] == CellTypes.treasure()) {
+				hasTreasure = true;
+			}
+			else if(grid[position.y][position.x - 1] == CellTypes.pirate()) {
+				hitPirate = true;
+			}
 		}
 	}
 
 	public void goNorth() {
 
-	  final int[][] grid = map.getMap();
+		final int[][] grid = map.getMap();
 
-		if(position.y - 1 >= 0 && grid[position.y - 1][position.x] == CellTypes.ocean()) {
-			move(position.x, position.y - 1);
+		if(position.y - 1 >= 0) {
+			if(grid[position.y - 1][position.x] == CellTypes.ocean()) {
+				move(position.x, position.y - 1);
+			}
+			else if(grid[position.y - 1][position.x] == CellTypes.treasure()) {
+				hasTreasure = true;
+			}
+			else if(grid[position.y - 1][position.x] == CellTypes.pirate()) {
+				hitPirate = true;
+			}
 		}
 	}
 
 	public void goSouth() {
 
-	  final int[][]grid = map.getMap();
+		final int[][]grid = map.getMap();
 		final int bounds = grid.length;
 
-		if(position.y + 1 < bounds  && grid[position.y + 1][position.x] == CellTypes.ocean()) {
-			move(position.x, position.y + 1);
+		if(position.y + 1 < bounds) {
+			if(grid[position.y + 1][position.x] == CellTypes.ocean()) {
+				move(position.x, position.y + 1);
+			}
+			else if(grid[position.y + 1][position.x] == CellTypes.treasure()) {
+				hasTreasure = true;
+			}
+			else if(grid[position.y + 1][position.x] == CellTypes.pirate()) {
+				hitPirate = true;
+			}
 		}
 	}
 }

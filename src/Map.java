@@ -52,10 +52,18 @@ public class Map {
 			map[row][col] = 1;
 			numberOfIslands--;
 		}
+		Random randomT = new Random();
+		int rowT = randomT.nextInt(map.length);
+		int colT = randomT.nextInt(map[rowT].length);
+		map[rowT][colT] = 3;
 	}
 
 	public int[][] getMap() {
 		return map;
+	}
+
+	public void updateCell(int x, int y, int type) {
+		map[y][x] = type;
 	}
 
 	public boolean isOcean(int x, int y) {
