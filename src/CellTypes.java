@@ -12,4 +12,8 @@ public class CellTypes {
 	public static int pirate() {
 		return 2;
 	}
+	
+	public static int treasure() {
+		return 3;
+	}
 }
