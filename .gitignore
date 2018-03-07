@@ -1,3 +1,4 @@
 *.class
 .idea/*
 .DS_STORE
+out/production/SE.FinalProject/*
