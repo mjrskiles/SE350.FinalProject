@@ -10,7 +10,7 @@ public class PirateShip implements Observer {
     private int[][] map;
     private PursuitStrategy strategy;
     private ImageView pirateImageView;
-    private final int scalingFactor = 50;
+    private final int scalingFactor = 20;
 
     public PirateShip(Ship columbus, int[][] map) {
       // Set Observable
