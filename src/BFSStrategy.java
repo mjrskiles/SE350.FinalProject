@@ -77,7 +77,6 @@ public class BFSStrategy implements PursuitStrategy {
             shortestPath.add(parent);
             parent = searchPathMap.get(parent);
         }
-        shortestPath.add(parent);
         Collections.reverse(shortestPath);
         return shortestPath;
     }
