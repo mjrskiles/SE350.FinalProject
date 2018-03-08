@@ -4,7 +4,8 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Map {
-	private int[][] map = new int[10][10];
+	private int dimensions = 30;
+	private int[][] map = new int[dimensions][dimensions];
 	private static Map uniqueInstance;
 
 	private Map() {
@@ -43,15 +44,19 @@ public class Map {
 			}
 		}
 
-		int numberOfIslands = 5;
-		Random random = new Random();
-		while(numberOfIslands > 0) {
-			int row = random.nextInt(map.length);
-			int col = random.nextInt(map[row].length);
+		int numberOfIslands = 50;
+		Random rand = new Random();
+		Point myPoint = new Point(rand.nextInt(dimensions), rand.nextInt(dimensions));
 
-			map[row][col] = 1;
-			numberOfIslands--;
+		for(int i = 0; i < numberOfIslands; i++){
+			while (map[myPoint.x][myPoint.y] != 0) {
+				rand = new Random();
+				myPoint = new Point(rand.nextInt(dimensions), rand.nextInt(dimensions));
+			}
+			map[myPoint.x][myPoint.y] = 1;
+			myPoint = new Point(rand.nextInt(dimensions), rand.nextInt(dimensions));
 		}
+
 		Random randomT = new Random();
 		int rowT = randomT.nextInt(map.length);
 		int colT = randomT.nextInt(map[rowT].length);

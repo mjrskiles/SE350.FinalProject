@@ -1,38 +1,43 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+
 import java.util.List;
 import java.util.LinkedList;
 
 
 public class Main extends Application {
-	private final int dimension = 10;
-	private final int scalingFactor = 50;
+	private final int dimension = 30;
+	private final int scalingFactor = 20;
 	private Map map = Map.getInstance();
 	private Ship ship = new Ship(map);
 	private ImageView shipImageView;
-	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),50, 50, true, true);
-	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),50,50,true,true);
-	private Image win = new Image(getClass().getResource("win.png").toExternalForm(),500,500,true,true);
-	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),500,500,true,true);
-	private Image lose1 = new Image(getClass().getResource("lose1.png").toExternalForm(),500,500,true,true);
+	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),scalingFactor, scalingFactor, true, true);
+	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),scalingFactor,scalingFactor,true,true);
+	private Image win = new Image(getClass().getResource("win.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
+	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
+	private Image lose1 = new Image(getClass().getResource("lose1.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
 	private boolean stop = false;
 	private AnchorPane root;
-	
+	Monster monster;
+	Thread monstersThread;
+
+
 
 	private void startSailing(Scene scene) {
 		scene.setOnKeyPressed((e) -> {
-
-			if (stop == false) {
-				switch (e.getCode()) {
+			if (stop == false){
+				switch(e.getCode()) {
 					case RIGHT:
 						ship.goEast();
 						break;
@@ -52,7 +57,9 @@ public class Main extends Application {
 				shipImageView.setY(ship.getLocation().y * scalingFactor);
 				checkTreasure();
 				checkPirate();
-				checkMonster();
+				monster.getShipPoint(ship.getLocation());
+				if (monster.gameOver) checkMonster();
+
 			}
 
 		});
@@ -60,11 +67,12 @@ public class Main extends Application {
 	}
 
 	private void checkTreasure() {
-		if (ship.hasTreasure) {
+		if (ship.hasTreasure == true){ 
 			stop = true;
 			addWinImage(root);
 			System.out.println("You found the treasure! You win!");
 		}
+
 	}
 	
 	private void addWinImage(AnchorPane root) {
@@ -74,13 +82,18 @@ public class Main extends Application {
 		root.getChildren().add(winImageView);
 		
 	}
-
 	private void checkPirate() {
-		if (ship.hitPirate) {
+		if (ship.hitPirate == true){
 			stop = true;
 			addLoseImage(root);
 			System.out.println("You've been caught by a pirate! You lose!");
 		}
+	}
+
+	private void checkMonster() {
+		stop = true;
+		addMonsterLoseImage(root);
+		System.out.println("You've been attacked by a monster! You lose!");
 	}
 
 	private void addLoseImage(AnchorPane root) {
@@ -90,22 +103,15 @@ public class Main extends Application {
 		root.getChildren().add(loseImageView);
 		
 	}
-	
-	private void checkMonster() {
-		if (ship.hitMonster == true){ 
-			stop = true;
-			addLose1Image(root);
-			System.out.println("You've been eaten by a monster! You lose!");
-		}
+
+	private void addMonsterLoseImage(AnchorPane root) {
+		ImageView loseImageView = new ImageView(lose1);
+		loseImageView.setX(0);
+		loseImageView.setY(0);
+		root.getChildren().add(loseImageView);
+
 	}
-	
-	private void addLose1Image(AnchorPane root) {
-		ImageView loseImageView1 = new ImageView(lose1);
-		loseImageView1.setX(0);
-		loseImageView1.setY(0);
-		root.getChildren().add(loseImageView1);
-		
-	}
+
 
 
 	private void setObservers() {
@@ -116,7 +122,7 @@ public class Main extends Application {
 
 	private void loadShipImage(AnchorPane root) {
 		Image shipImage = new Image(getClass().getResource("ship.png").toExternalForm(),
-				50, 50, true, true);
+				scalingFactor, scalingFactor, true, true);
 		shipImageView = new ImageView(shipImage);
 		shipImageView.setX(ship.getLocation().x * scalingFactor);
 		shipImageView.setY(ship.getLocation().y * scalingFactor);
@@ -132,8 +138,8 @@ public class Main extends Application {
   
   private void addTreasureImage(AnchorPane root, int x, int y) {
 		ImageView treasureImageView = new ImageView(treasureImage);
-		treasureImageView.setX(x * scalingFactor);
-		treasureImageView.setY(y * scalingFactor);
+		treasureImageView.setX(x*scalingFactor);
+		treasureImageView.setY(y*scalingFactor);
 		root.getChildren().add(treasureImageView);
 		
 	}
@@ -175,10 +181,6 @@ public class Main extends Application {
 				else if(map[y][x] == CellTypes.treasure()) {
 					addTreasureImage(root,x,y);
 				}
-				else if(map[x][y] == CellTypes.monster()){
-					rect.setFill(Color.DARKTURQUOISE);
-					root.getChildren().add(rect);
-				}
 				else { // is a pirate cell
 					// create ocean tile anyways
 					// the tile will be "underneath" the pirate since it is added to the tree later
@@ -198,12 +200,20 @@ public class Main extends Application {
 		try {
 			pirateFactory.setImageFromPath("pirateShip.png");
 			root = new AnchorPane();
-			Scene scene = new Scene(root,500,500);
+			Scene scene = new Scene(root, dimension*scalingFactor, dimension*scalingFactor);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Ocean");
 			drawMap(map.getMap(), root); // everything else is rendered before pirate
 			addPirates(root); // just below ship's Z-index
 			loadShipImage(root); // highest level Z-index
+
+			monster = new Monster(scalingFactor);
+			monster.addToPane(root.getChildren());
+			primaryStage.show();
+
+			monstersThread = new Thread(monster);
+			monstersThread.start();
+			monster.getShipPoint(ship.getLocation());
 			primaryStage.show();
 			startSailing(scene);
 			setObservers(); // set the observers after events have been registered
