@@ -14,7 +14,7 @@ public class BFSStrategy implements PursuitStrategy {
         final int[][] map = oceanMap.getMap();
 
         List<Point> shortestPath = performBFS(map, currentPosition, targetPosition);
-        printPointList(shortestPath);
+//        printPointList(shortestPath);
 
         Point next = currentPosition;
         if (shortestPath != null && !shortestPath.isEmpty()) {
