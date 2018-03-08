@@ -17,4 +17,7 @@ public class CellTypes {
 		return 3;
 	}
 	
+	public static int monster() {
+		return 4;
+	}
 }

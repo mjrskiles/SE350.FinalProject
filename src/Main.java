@@ -23,6 +23,7 @@ public class Main extends Application {
 	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),50,50,true,true);
 	private Image win = new Image(getClass().getResource("win.png").toExternalForm(),500,500,true,true);
 	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),500,500,true,true);
+	private Image lose1 = new Image(getClass().getResource("lose1.png").toExternalForm(),500,500,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
 	private boolean stop = false;
@@ -52,9 +53,11 @@ public class Main extends Application {
 				shipImageView.setY(ship.getLocation().y * scalingFactor);
 				checkTreasure();
 				checkPirate();
+				checkMonster();
 			}
 
 		});
+
 	}
 
 
@@ -89,6 +92,24 @@ public class Main extends Application {
 		root.getChildren().add(loseImageView);
 		
 	}
+	
+	private void checkMonster() {
+		if (ship.hitMonster == true){ 
+			stop = true;
+			addLose1Image(root);
+			System.out.println("You've been eaten by a monster! You lose!");
+		}
+	}
+	
+	private void addLose1Image(AnchorPane root2) {
+		ImageView loseImageView1 = new ImageView(lose1);
+		loseImageView1.setX(0);
+		loseImageView1.setY(0);
+		root.getChildren().add(loseImageView1);
+		
+	}
+
+
 	private void setObservers() {
 		for(PirateShip pirate : pirates) {
 			ship.addObserver(pirate);
@@ -131,6 +152,7 @@ public class Main extends Application {
 	private void addPirates(AnchorPane root) {
 		for(PirateShip pirate : pirates) {
 			root.getChildren().add(pirate.getImageView());
+			System.out.println("Pirate added");
 		}
 	}
 
@@ -154,6 +176,10 @@ public class Main extends Application {
 				}
 				else if(map[y][x] == CellTypes.treasure()) {
 					addTreasureImage(root,x,y);
+				}
+				else if(map[x][y] == CellTypes.monster()){
+					rect.setFill(Color.DARKTURQUOISE);
+					root.getChildren().add(rect);
 				}
 				else { // is a pirate cell
 					// create ocean tile anyways
