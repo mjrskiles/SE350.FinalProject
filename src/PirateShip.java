@@ -29,11 +29,11 @@ public class PirateShip implements Observer {
     }
 
     private void move(int x, int y) {
-      position.move(x, y);
-      map[y][x] = CellTypes.pirate();
-      if(getLocation().equals(columbus.getLocation())) {
-          columbus.hitPirate = true;
-      }
+        //Change the old position back to ocean.
+        map[position.y][position.x] = CellTypes.ocean();
+        position.move(x, y);
+        map[y][x] = CellTypes.pirate();
+        System.out.println("Moved pirate to " + position.x + ", " + position.y);
     }
 
     public Point getLocation() {
@@ -53,6 +53,11 @@ public class PirateShip implements Observer {
         if (position != columbusLoc) {
             Point nextPosition = strategy.getNextPosition(position, columbusLoc);
             move((int) nextPosition.getX(), (int) nextPosition.getY());
+        }
+        if(getLocation().equals(columbus.getLocation())) {
+            columbus.hitPirate = true;
+            System.out.println("Columbus captured at " + columbus.getLocation().x + ", " + columbus.getLocation().y +
+                                    " by pirate at " + position.x + ", " + position.y);
         }
         updateImageView();
     }
