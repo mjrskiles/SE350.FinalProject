@@ -101,7 +101,7 @@ public class Main extends Application {
 		}
 	}
 	
-	private void addLose1Image(AnchorPane root2) {
+	private void addLose1Image(AnchorPane root) {
 		ImageView loseImageView1 = new ImageView(lose1);
 		loseImageView1.setX(0);
 		loseImageView1.setY(0);
