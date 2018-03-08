@@ -152,7 +152,7 @@ public class Main extends Application {
 	private void addPirates(AnchorPane root) {
 		for(PirateShip pirate : pirates) {
 			root.getChildren().add(pirate.getImageView());
-			System.out.println("Pirate added");
+			//System.out.println("Pirate added");
 		}
 	}
 
