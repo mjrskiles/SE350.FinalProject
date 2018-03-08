@@ -26,7 +26,8 @@ public class Main extends Application {
 	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
 	private Image lose1 = new Image(getClass().getResource("lose1.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
-	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
+	private PirateShipFactoryGenerator factoryGenerator = new PirateShipFactoryGenerator();
+	private PirateShipFactory pirateFactory = new AveragePirateShipFactory();
 	private boolean stop = false;
 	private AnchorPane root;
 	Monster monster;
@@ -144,8 +145,9 @@ public class Main extends Application {
 		
 	}
 
-	private void createPirate(AnchorPane root, int x, int y) {
-		PirateShip pirate = pirateFactory.createPirateShip(x, y);
+	private void createPirate(int x, int y) {
+		pirateFactory = factoryGenerator.getRandomFactory();
+		PirateShip pirate = pirateFactory.createPirateShip(ship, x, y);
 		pirates.add(pirate);
 	}
 
@@ -156,7 +158,7 @@ public class Main extends Application {
 	private void addPirates(AnchorPane root) {
 		for(PirateShip pirate : pirates) {
 			root.getChildren().add(pirate.getImageView());
-			System.out.println("Pirate added");
+//			System.out.println("Pirate added");
 		}
 	}
 
@@ -186,7 +188,7 @@ public class Main extends Application {
 					// the tile will be "underneath" the pirate since it is added to the tree later
 					rect.setFill(Color.PALETURQUOISE);
 					root.getChildren().add(rect);
-					createPirate(root, x, y);
+					createPirate(x, y);
 					// Because navigation relies on cell types
 					map[y][x] = CellTypes.ocean();
 				}
@@ -198,7 +200,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			pirateFactory.setImageFromPath("pirateShip.png");
 			root = new AnchorPane();
 			Scene scene = new Scene(root, dimension*scalingFactor, dimension*scalingFactor);
 			primaryStage.setScene(scene);

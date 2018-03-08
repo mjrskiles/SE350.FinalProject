@@ -6,11 +6,12 @@ import java.util.Random;
 public class Map {
 	private int dimensions = 30;
 	private int[][] map = new int[dimensions][dimensions];
+	private final int NUM_PIRATES = 2;
 	private static Map uniqueInstance;
 
 	private Map() {
 		populateMap();
-		createPirates(2);
+		createPirates(NUM_PIRATES);
 	}
 
 	public static Map getInstance() {
