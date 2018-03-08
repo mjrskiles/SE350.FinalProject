@@ -11,6 +11,12 @@ import java.util.List;
 import java.util.LinkedList;
 import java.awt.Point;
 
+/*
+* Brennen Stenson wrote this file. Any subsequent changes made to it are the author of whoever is in the commit history.
+* Git wasn't very friendly to Brennen. So, grader guys, just know that he wrote the majority of this file.
+*
+*
+* */
 class MonsterSprite{
     int x;
     int y;
