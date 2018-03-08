@@ -8,6 +8,7 @@ public class Ship extends Observable {
 	private Map map;
 	public boolean hasTreasure = false;
 	public boolean hitPirate = false;
+	public boolean hitMonster = false;
 
 	public Ship(Map map) {
 		Random random = new Random();
@@ -45,8 +46,8 @@ public class Ship extends Observable {
 				move(position.x + 1, position.y);
 				hasTreasure = true;
 			}
+
 			else if(grid[position.y][position.x + 1] == CellTypes.pirate()){
-				move(position.x + 1, position.y);
 				hitPirate = true;
 			}
 		}
@@ -61,11 +62,11 @@ public class Ship extends Observable {
 				move(position.x - 1, position.y);
 			}
 			else if(grid[position.y][position.x - 1] == CellTypes.treasure()) {
+
 				move(position.x - 1, position.y);
 				hasTreasure = true;
 			}
 			else if(grid[position.y][position.x - 1] == CellTypes.pirate()) {
-				move(position.x - 1, position.y);
 				hitPirate = true;
 			}
 		}
@@ -83,8 +84,8 @@ public class Ship extends Observable {
 				move(position.x, position.y - 1);
 				hasTreasure = true;
 			}
+
 			else if(grid[position.y - 1][position.x] == CellTypes.pirate()) {
-				move(position.x, position.y - 1);
 				hitPirate = true;
 			}
 		}
@@ -103,8 +104,8 @@ public class Ship extends Observable {
 				move(position.x, position.y + 1);
 				hasTreasure = true;
 			}
+
 			else if(grid[position.y + 1][position.x] == CellTypes.pirate()) {
-				move(position.x, position.y + 1);
 				hitPirate = true;
 			}
 		}

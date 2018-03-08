@@ -1,8 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
@@ -21,14 +19,17 @@ public class Main extends Application {
 	private ImageView shipImageView;
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),50, 50, true, true);
 	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),50,50,true,true);
+	private Image win = new Image(getClass().getResource("win.png").toExternalForm(),500,500,true,true);
+	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),500,500,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
 	private boolean stop = false;
+	private AnchorPane root;
 	
 
 	private void startSailing(Scene scene) {
 		scene.setOnKeyPressed((e) -> {
-			if (stop == false){
+			if (!stop){
 				switch(e.getCode()) {
 					case RIGHT:
 						ship.goEast();
@@ -54,21 +55,37 @@ public class Main extends Application {
 		});
 
 	}
+
 	private void checkTreasure() {
-		if (ship.hasTreasure == true){ 
+		if (ship.hasTreasure) {
 			stop = true;
+			addWinImage(root);
 			System.out.println("You found the treasure! You win!");
 		}
-
 	}
 	
+	private void addWinImage(AnchorPane root) {
+		ImageView winImageView = new ImageView(win);
+		winImageView.setX(0);
+		winImageView.setY(0);
+		root.getChildren().add(winImageView);
+		
+	}
 	private void checkPirate() {
-		if (ship.hitPirate == true){
+		if (ship.hitPirate) {
 			stop = true;
+			addLoseImage(root);
 			System.out.println("You've been caught by a pirate! You lose!");
 		}
 	}
 
+	private void addLoseImage(AnchorPane root) {
+		ImageView loseImageView = new ImageView(lose);
+		loseImageView.setX(0);
+		loseImageView.setY(0);
+		root.getChildren().add(loseImageView);
+		
+	}
 	private void setObservers() {
 		for(PirateShip pirate : pirates) {
 			ship.addObserver(pirate);
@@ -93,8 +110,8 @@ public class Main extends Application {
   
   private void addTreasureImage(AnchorPane root, int x, int y) {
 		ImageView treasureImageView = new ImageView(treasureImage);
-		treasureImageView.setX(x*scalingFactor);
-		treasureImageView.setY(y*scalingFactor);
+		treasureImageView.setX(x * scalingFactor);
+		treasureImageView.setY(y * scalingFactor);
 		root.getChildren().add(treasureImageView);
 		
 	}
@@ -154,7 +171,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			pirateFactory.setImageFromPath("pirateShip.png");
-			AnchorPane root = new AnchorPane();
+			root = new AnchorPane();
 			Scene scene = new Scene(root,500,500);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Ocean");
