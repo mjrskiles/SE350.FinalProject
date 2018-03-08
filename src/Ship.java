@@ -8,10 +8,7 @@ public class Ship extends Observable {
 	private Map map;
 	public boolean hasTreasure = false;
 	public boolean hitPirate = false;
-<<<<<<< HEAD
-=======
 	public boolean hitMonster = false;
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 
 	public Ship(Map map) {
 		Random random = new Random();
@@ -46,18 +43,15 @@ public class Ship extends Observable {
 				move(position.x + 1, position.y);
 			}
 			else if(grid[position.y][position.x + 1] == CellTypes.treasure()) {
-<<<<<<< HEAD
 				move(position.x + 1, position.y);
 				hasTreasure = true;
 			}
+
 			else if(grid[position.y][position.x + 1] == CellTypes.pirate()){
-				move(position.x + 1, position.y);
-=======
-				hasTreasure = true;
-			}
-			else if(grid[position.y][position.x + 1] == CellTypes.pirate()){
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 				hitPirate = true;
+			}
+			else if(grid[position.y][position.x + 1] == CellTypes.monster()) {
+				hitMonster = true;
 			}
 		}
 	}
@@ -71,18 +65,14 @@ public class Ship extends Observable {
 				move(position.x - 1, position.y);
 			}
 			else if(grid[position.y][position.x - 1] == CellTypes.treasure()) {
-<<<<<<< HEAD
 				move(position.x - 1, position.y);
 				hasTreasure = true;
 			}
 			else if(grid[position.y][position.x - 1] == CellTypes.pirate()) {
-				move(position.x - 1, position.y);
-=======
-				hasTreasure = true;
-			}
-			else if(grid[position.y][position.x - 1] == CellTypes.pirate()) {
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 				hitPirate = true;
+			}
+			else if(grid[position.y][position.x - 1] == CellTypes.monster()) {
+				hitMonster = true;
 			}
 		}
 	}
@@ -96,18 +86,15 @@ public class Ship extends Observable {
 				move(position.x, position.y - 1);
 			}
 			else if(grid[position.y - 1][position.x] == CellTypes.treasure()) {
-<<<<<<< HEAD
 				move(position.x, position.y - 1);
 				hasTreasure = true;
 			}
+
 			else if(grid[position.y - 1][position.x] == CellTypes.pirate()) {
-				move(position.x, position.y - 1);
-=======
-				hasTreasure = true;
-			}
-			else if(grid[position.y - 1][position.x] == CellTypes.pirate()) {
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 				hitPirate = true;
+			}
+			else if(grid[position.y - 1][position.x] == CellTypes.monster()) {
+				hitMonster = true;
 			}
 		}
 	}
@@ -122,18 +109,15 @@ public class Ship extends Observable {
 				move(position.x, position.y + 1);
 			}
 			else if(grid[position.y + 1][position.x] == CellTypes.treasure()) {
-<<<<<<< HEAD
 				move(position.x, position.y + 1);
 				hasTreasure = true;
 			}
+
 			else if(grid[position.y + 1][position.x] == CellTypes.pirate()) {
-				move(position.x, position.y + 1);
-=======
-				hasTreasure = true;
-			}
-			else if(grid[position.y + 1][position.x] == CellTypes.pirate()) {
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 				hitPirate = true;
+			}
+			else if(grid[position.y + 1][position.x] == CellTypes.monster()) {
+				hitMonster=true;
 			}
 		}
 	}
