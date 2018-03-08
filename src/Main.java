@@ -1,8 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
@@ -31,7 +29,7 @@ public class Main extends Application {
 
 	private void startSailing(Scene scene) {
 		scene.setOnKeyPressed((e) -> {
-			if (stop == false){
+			if (!stop){
 				switch(e.getCode()) {
 					case RIGHT:
 						ship.goEast();
@@ -59,12 +57,11 @@ public class Main extends Application {
 	}
 
 	private void checkTreasure() {
-		if (ship.hasTreasure == true){ 
+		if (ship.hasTreasure) {
 			stop = true;
 			addWinImage(root);
 			System.out.println("You found the treasure! You win!");
 		}
-
 	}
 	
 	private void addWinImage(AnchorPane root) {
@@ -75,7 +72,7 @@ public class Main extends Application {
 		
 	}
 	private void checkPirate() {
-		if (ship.hitPirate == true){
+		if (ship.hitPirate) {
 			stop = true;
 			addLoseImage(root);
 			System.out.println("You've been caught by a pirate! You lose!");
@@ -113,8 +110,8 @@ public class Main extends Application {
   
   private void addTreasureImage(AnchorPane root, int x, int y) {
 		ImageView treasureImageView = new ImageView(treasureImage);
-		treasureImageView.setX(x*scalingFactor);
-		treasureImageView.setY(y*scalingFactor);
+		treasureImageView.setX(x * scalingFactor);
+		treasureImageView.setY(y * scalingFactor);
 		root.getChildren().add(treasureImageView);
 		
 	}
