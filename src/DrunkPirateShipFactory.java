@@ -1,9 +1,13 @@
-import javafx.scene.layout.AnchorPane;
+import javafx.scene.image.ImageView;
 
 public class DrunkPirateShipFactory extends PirateShipFactory {
-    public DrunkPirateShipFactory(AnchorPane root, Ship columbus, Map map) { super(columbus, map); }
+    public DrunkPirateShipFactory() { super(); }
 
-    public PirateShip createPirateShip(int x, int y) {
-        return new DrunkenPirateShip(columbus, map.getMap());
+    public PirateShip createPirateShip(Ship columbus, int x, int y) {
+        Map map = Map.getInstance();
+        PirateShip ps = new DrunkenPirateShip(columbus, map.getMap());
+        ps.setLocation(x, y);
+        ps.setImageView(new ImageView(createNewImage()));
+        return ps;
     }
 }

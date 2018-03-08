@@ -3,17 +3,12 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 
 public abstract class PirateShipFactory {
-    Ship columbus;
-    Map map;
     Image image;
     String imagePath;
 
-    public PirateShipFactory(Ship columbus, Map map) {
-        this.columbus = columbus;
-        this.map = map;
-    }
+    public PirateShipFactory() {}
 
-    public abstract PirateShip createPirateShip(int x, int y);
+    public abstract PirateShip createPirateShip(Ship columbus, int x, int y);
 
     public void setImageFromPath(String path) {
         imagePath = path;

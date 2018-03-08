@@ -22,7 +22,7 @@ public class Main extends Application {
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),50, 50, true, true);
 	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),50,50,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
-	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
+	private PirateShipFactory pirateFactory = new AveragePirateShipFactory();
 	private boolean stop = false;
 	
 
@@ -100,7 +100,7 @@ public class Main extends Application {
 	}
 
 	private void createPirate(AnchorPane root, int x, int y) {
-		PirateShip pirate = pirateFactory.createPirateShip(x, y);
+		PirateShip pirate = pirateFactory.createPirateShip(ship, x, y);
 		pirates.add(pirate);
 	}
 
