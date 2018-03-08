@@ -50,6 +50,9 @@ public class Ship extends Observable {
 			else if(grid[position.y][position.x + 1] == CellTypes.pirate()){
 				hitPirate = true;
 			}
+			else if(grid[position.y][position.x + 1] == CellTypes.monster()) {
+				hitMonster = true;
+			}
 		}
 	}
 
@@ -62,12 +65,14 @@ public class Ship extends Observable {
 				move(position.x - 1, position.y);
 			}
 			else if(grid[position.y][position.x - 1] == CellTypes.treasure()) {
-
 				move(position.x - 1, position.y);
 				hasTreasure = true;
 			}
 			else if(grid[position.y][position.x - 1] == CellTypes.pirate()) {
 				hitPirate = true;
+			}
+			else if(grid[position.y][position.x - 1] == CellTypes.monster()) {
+				hitMonster = true;
 			}
 		}
 	}
@@ -88,6 +93,9 @@ public class Ship extends Observable {
 			else if(grid[position.y - 1][position.x] == CellTypes.pirate()) {
 				hitPirate = true;
 			}
+			else if(grid[position.y - 1][position.x] == CellTypes.monster()) {
+				hitMonster = true;
+			}
 		}
 	}
 
@@ -107,6 +115,9 @@ public class Ship extends Observable {
 
 			else if(grid[position.y + 1][position.x] == CellTypes.pirate()) {
 				hitPirate = true;
+			}
+			else if(grid[position.y + 1][position.x] == CellTypes.monster()) {
+				hitMonster=true;
 			}
 		}
 	}
