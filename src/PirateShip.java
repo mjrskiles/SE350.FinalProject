@@ -48,9 +48,13 @@ public class PirateShip implements Observer {
     public ImageView getImageView() { return pirateImageView; }
 
     public void update(Observable obs, Object obj) {
-      Point nextPosition = strategy.getNextPosition(getLocation(), columbus.getLocation());
-      move((int)nextPosition.getX(), (int)nextPosition.getY());
-      updateImageView();
+        Point columbusLoc = columbus.getLocation();
+        //Only attempt to move if the pirate isn't already on Columbus.
+        if (position != columbusLoc) {
+            Point nextPosition = strategy.getNextPosition(position, columbusLoc);
+            move((int) nextPosition.getX(), (int) nextPosition.getY());
+        }
+        updateImageView();
     }
 
     private void updateImageView() {
