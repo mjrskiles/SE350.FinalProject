@@ -21,18 +21,12 @@ public class Main extends Application {
 	private ImageView shipImageView;
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),50, 50, true, true);
 	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),50,50,true,true);
-<<<<<<< HEAD
-	private List<PirateShip> pirates = new LinkedList<PirateShip>();
-	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
-	private boolean stop = false;
-=======
 	private Image win = new Image(getClass().getResource("win.png").toExternalForm(),500,500,true,true);
 	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),500,500,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory(ship, map);
 	private boolean stop = false;
 	private AnchorPane root;
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 	
 
 	private void startSailing(Scene scene) {
@@ -63,21 +57,6 @@ public class Main extends Application {
 		});
 
 	}
-	private void checkTreasure() {
-		if (ship.hasTreasure == true){ 
-			stop = true;
-			System.out.println("You found the treasure! You win!");
-		}
-
-	}
-	
-	private void checkPirate() {
-		if (ship.hitPirate == true){
-			stop = true;
-			System.out.println("You've been caught by a pirate! You lose!");
-		}
-	}
-
 
 	private void checkTreasure() {
 		if (ship.hasTreasure == true){ 
@@ -152,10 +131,7 @@ public class Main extends Application {
 	private void addPirates(AnchorPane root) {
 		for(PirateShip pirate : pirates) {
 			root.getChildren().add(pirate.getImageView());
-<<<<<<< HEAD
 			System.out.println("Pirate added");
-=======
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 		}
 	}
 
@@ -198,11 +174,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) {
 		try {
 			pirateFactory.setImageFromPath("pirateShip.png");
-<<<<<<< HEAD
-			AnchorPane root = new AnchorPane();
-=======
 			root = new AnchorPane();
->>>>>>> c01e226147964f72a76d456d6c0b460a387cd6eb
 			Scene scene = new Scene(root,500,500);
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Ocean");
