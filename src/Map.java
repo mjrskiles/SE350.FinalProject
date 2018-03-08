@@ -4,12 +4,13 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Map {
+	private final int NUM_PIRATES = 4;
 	private int[][] map = new int[10][10];
 	private static Map uniqueInstance;
 
 	private Map() {
 		populateMap();
-		createPirates(2);
+		createPirates(NUM_PIRATES);
 	}
 
 	public static Map getInstance() {

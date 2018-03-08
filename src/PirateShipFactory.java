@@ -12,12 +12,6 @@ public abstract class PirateShipFactory {
 
     public void setImageFromPath(String path) {
         imagePath = path;
-        image = new Image(getClass().getResource(path).toExternalForm(),
-                50, 50, true, true);
-    }
-
-    public Image createNewImage() {
-        return new Image(getClass().getResource(imagePath).toExternalForm(),
-                50, 50, true, true);
+        image = new Image(path,50, 50, true, true);
     }
 }

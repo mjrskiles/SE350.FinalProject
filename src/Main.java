@@ -22,6 +22,7 @@ public class Main extends Application {
 	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),50, 50, true, true);
 	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),50,50,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
+	private PirateShipFactoryGenerator factoryGenerator = new PirateShipFactoryGenerator();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory();
 	private boolean stop = false;
 	
@@ -99,7 +100,8 @@ public class Main extends Application {
 		
 	}
 
-	private void createPirate(AnchorPane root, int x, int y) {
+	private void createPirate(int x, int y) {
+		pirateFactory = factoryGenerator.getRandomFactory();
 		PirateShip pirate = pirateFactory.createPirateShip(ship, x, y);
 		pirates.add(pirate);
 	}
@@ -141,7 +143,7 @@ public class Main extends Application {
 					// the tile will be "underneath" the pirate since it is added to the tree later
 					rect.setFill(Color.PALETURQUOISE);
 					root.getChildren().add(rect);
-					createPirate(root, x, y);
+					createPirate(x, y);
 					// Because navigation relies on cell types
 					map[y][x] = CellTypes.ocean();
 				}
@@ -153,7 +155,7 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			pirateFactory.setImageFromPath("pirateShip.png");
+			pirateFactory.setImageFromPath("file:pirateShip.png");
 			AnchorPane root = new AnchorPane();
 			Scene scene = new Scene(root,500,500);
 			primaryStage.setScene(scene);

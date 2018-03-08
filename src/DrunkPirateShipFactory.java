@@ -7,7 +7,7 @@ public class DrunkPirateShipFactory extends PirateShipFactory {
         Map map = Map.getInstance();
         PirateShip ps = new DrunkenPirateShip(columbus, map.getMap());
         ps.setLocation(x, y);
-        ps.setImageView(new ImageView(createNewImage()));
+        ps.setImageView(new ImageView(image));
         return ps;
     }
 }
