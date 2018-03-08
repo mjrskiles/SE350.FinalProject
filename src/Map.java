@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Map {
-	private final int NUM_PIRATES = 4;
+	private final int NUM_PIRATES = 2;
 	private int[][] map = new int[10][10];
 	private static Map uniqueInstance;
 
