@@ -1,3 +1,5 @@
+import javafx.scene.image.ImageView;
+
 import java.awt.Point;
 import java.util.Observer;
 import java.util.Observable;
@@ -6,6 +8,9 @@ public class PirateShip implements Observer {
     private Point position;
     private Ship columbus;
     private int[][] map;
+    private PursuitStrategy strategy;
+    private ImageView pirateImageView;
+    private final int scalingFactor = 50;
 
     public PirateShip(Ship columbus, int[][] map) {
       // Set Observable
@@ -14,7 +19,10 @@ public class PirateShip implements Observer {
       position = new Point(0, 0);
       // get copy of Map
       this.map = map;
+      setStrategy(new DirectPathStrategy());
     }
+
+    public void setStrategy(PursuitStrategy strategy) { this.strategy = strategy; }
 
     public void setLocation(int x, int y) {
       position = new Point(x, y);
@@ -22,37 +30,31 @@ public class PirateShip implements Observer {
 
     private void move(int x, int y) {
       position.move(x, y);
+      map[y][x] = CellTypes.pirate();
+      if(getLocation().equals(columbus.getLocation())) {
+          columbus.hitPirate = true;
+      }
     }
 
     public Point getLocation() {
       return position;
     }
 
+    public void setImageView(ImageView iv) {
+        pirateImageView = iv;
+        updateImageView();
+    }
+
+    public ImageView getImageView() { return pirateImageView; }
+
     public void update(Observable obs, Object obj) {
-      Point columbusLocation = columbus.getLocation();
-      if(position.x < columbusLocation.x) {
-        if(map[position.y][position.x + 1] == CellTypes.ocean()) {
-          move(position.x + 1, position.y);
-          return;
-        }
-      }
-      else if(position.x > columbusLocation.x) {
-        if(map[position.y][position.x - 1] == CellTypes.ocean()) {
-          move(position.x - 1, position.y);
-          return;
-        }
-      }
-      if(position.y < columbusLocation.y) {
-        if(map[position.y + 1][position.x] == CellTypes.ocean()) {
-          move(position.x, position.y + 1);
-          return;
-        }
-      }
-      else if(position.y > columbusLocation.y) {
-        if(map[position.y - 1][position.x] == CellTypes.ocean()) {
-          move(position.x, position.y - 1);
-          return;
-        }
-      }
+      Point nextPosition = strategy.getNextPosition(getLocation(), columbus.getLocation());
+      move((int)nextPosition.getX(), (int)nextPosition.getY());
+      updateImageView();
+    }
+
+    private void updateImageView() {
+        pirateImageView.setX(getLocation().x * scalingFactor);
+        pirateImageView.setY(getLocation().y * scalingFactor);
     }
 }
