@@ -113,7 +113,7 @@ public class Main extends Application {
 	private void addPirates(AnchorPane root) {
 		for(PirateShip pirate : pirates) {
 			root.getChildren().add(pirate.getImageView());
-			System.out.println("Pirate added");
+//			System.out.println("Pirate added");
 		}
 	}
 
@@ -155,7 +155,6 @@ public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			pirateFactory.setImageFromPath("file:pirateShip.png");
 			AnchorPane root = new AnchorPane();
 			Scene scene = new Scene(root,500,500);
 			primaryStage.setScene(scene);

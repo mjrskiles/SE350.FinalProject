@@ -4,9 +4,11 @@ import javafx.scene.layout.AnchorPane;
 
 public abstract class PirateShipFactory {
     Image image;
-    String imagePath;
+    String imagePath = "file:src/pirateShip.png";
 
-    public PirateShipFactory() {}
+    public PirateShipFactory() {
+        setImageFromPath(imagePath);
+    }
 
     public abstract PirateShip createPirateShip(Ship columbus, int x, int y);
 

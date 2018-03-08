@@ -8,6 +8,7 @@ public class AveragePirateShipFactory extends PirateShipFactory {
         PirateShip ps = new AveragePirateShip(columbus, map.getMap());
         ps.setLocation(x, y);
         ps.setImageView(new ImageView(image));
+        System.out.println("AveragePirateShip added.");
         return ps;
     }
 }
