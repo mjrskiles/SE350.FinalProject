@@ -4,11 +4,13 @@ import java.util.Observable;
 import java.util.Random;
 
 public class Ship extends Observable {
-	private static Point position;
-	private Map map;
+	protected static Point position;
+	protected Map map;
 	public boolean hasTreasure = false;
 	public boolean hitPirate = false;
 	public boolean hitMonster = false;
+
+	public Ship(){}
 
 	public Ship(Map map) {
 		Random random = new Random();
@@ -27,7 +29,7 @@ public class Ship extends Observable {
 		return position;
 	}
 
-	private void move(int x, int y) {
+	protected void move(int x, int y) {
 		position = new Point(x, y);
 		setChanged();
 		notifyObservers();
