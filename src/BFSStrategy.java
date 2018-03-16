@@ -26,7 +26,7 @@ public class BFSStrategy implements PursuitStrategy {
                 next = shortestPath.get(0);
             }
         }
-        if (oceanMap.isOcean(next.x, next.y))
+        if (oceanMap.canEnter(next.x, next.y))
             return next;
         else
             return currentPosition;

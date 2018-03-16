@@ -5,7 +5,7 @@ import javafx.scene.layout.AnchorPane;
 public abstract class PirateShipFactory {
     Image image;
     String imagePath = "file:src/pirateShip.png";
-    int scalingFactor = 20;
+    int scalingFactor = Main.scalingFactor;
 
     public PirateShipFactory() {
         setImageFromPath(imagePath);

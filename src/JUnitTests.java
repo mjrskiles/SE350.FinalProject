@@ -18,11 +18,11 @@ public class JUnitTests {
         int islandCount = 0;
         for(int i = 0; i < Map.DIMENSION; i++){
             for (int ii = 0; ii < Map.DIMENSION; ii++){
-                if(Map.map[i][ii] == CellTypes.island()){
+                if(Map.getInstance().getMap()[i][ii] == CellTypes.island){
                     islandCount++;
                 }
             }
         }
-        assertTrue((islandCount == Map.numberOfIslands));
+        assertTrue((islandCount == Map.NUM_ISLANDS));
     }
 }

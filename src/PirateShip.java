@@ -30,10 +30,18 @@ public class PirateShip implements Observer {
 
     private void move(int x, int y) {
         //Change the old position back to ocean.
-        map[position.y][position.x] = CellTypes.ocean();
+        map[position.y][position.x] = CellTypes.ocean;
+
+        //set the new position
         position.move(x, y);
-        map[y][x] = CellTypes.pirate();
-        System.out.println("Moved pirate to " + position.x + ", " + position.y);
+
+        //The pirate gets drunk if it goes over rum
+        if (Map.getInstance().isRum(x, y)) {
+            strategy = new DrunkenStrategy();
+        }
+
+        map[y][x] = CellTypes.pirate;
+//        System.out.println("Moved pirate to " + position.x + ", " + position.y);
     }
 
     public Point getLocation() {
