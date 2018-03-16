@@ -42,6 +42,7 @@ public class Ship extends Observable {
 			int cell = grid[position.y][position.x + 1];
 			if(cell == CellTypes.ocean || cell == CellTypes.rum) {
 				move(position.x + 1, position.y);
+                map.updateCell(position.x + 1, position.y, CellTypes.ocean);
 			}
 			else if(cell == CellTypes.treasure) {
 				move(position.x + 1, position.y);
@@ -67,6 +68,7 @@ public class Ship extends Observable {
 		    int cell = grid[position.y][position.x - 1];
             if(cell == CellTypes.ocean || cell == CellTypes.rum) {
 				move(position.x - 1, position.y);
+                map.updateCell(position.x - 1, position.y, CellTypes.ocean);
 			}
 			else if(cell == CellTypes.treasure) {
 
@@ -92,6 +94,7 @@ public class Ship extends Observable {
 		    int cell = grid[position.y - 1][position.x];
             if(cell == CellTypes.ocean || cell == CellTypes.rum) {
 				move(position.x, position.y - 1);
+                map.updateCell(position.x, position.y - 1, CellTypes.ocean);
 			}
 			else if(cell == CellTypes.treasure) {
 				move(position.x, position.y - 1);
@@ -118,6 +121,7 @@ public class Ship extends Observable {
 		    int cell = grid[position.y + 1][position.x];
             if(cell == CellTypes.ocean || cell == CellTypes.rum) {
 				move(position.x, position.y + 1);
+				map.updateCell(position.x, position.y + 1, CellTypes.ocean);
 			}
 			else if(cell == CellTypes.treasure) {
 				move(position.x, position.y + 1);

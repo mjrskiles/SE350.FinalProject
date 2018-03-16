@@ -19,20 +19,20 @@ public class DirectPathStrategy implements PursuitStrategy {
         int yDirection = (dy > 0) ? -1 : 1;
         // If the difference in x positions is greater, prefer to move horizontally
         if (Math.abs(dx) > Math.abs(dy)) {
-            if (map.isOcean(currentPosition.x + xDirection, currentPosition.y)) {
+            if (map.canEnter(currentPosition.x + xDirection, currentPosition.y)) {
                 nextPosition.x = nextPosition.x + xDirection;
             }
             //if the horizontal move was impossible, try to move vertically.
-            else if (map.isOcean(currentPosition.x, currentPosition.y + yDirection)) {
+            else if (map.canEnter(currentPosition.x, currentPosition.y + yDirection)) {
                 nextPosition.y = nextPosition.y + yDirection;
             }
         }
         // Try to move vertically if the y distance is greater.
         else {
-            if (map.isOcean(currentPosition.x, currentPosition.y + yDirection)) {
+            if (map.canEnter(currentPosition.x, currentPosition.y + yDirection)) {
                 nextPosition.y = nextPosition.y + yDirection;
             }
-            else if (map.isOcean(currentPosition.x + xDirection, currentPosition.y)) {
+            else if (map.canEnter(currentPosition.x + xDirection, currentPosition.y)) {
                 nextPosition.x = nextPosition.x + xDirection;
             }
         }

@@ -22,14 +22,15 @@ public class Monster implements Runnable {
     Point ship;
     boolean gameOver = false;
     int mapDimension;
+    int numMonsters = 12;
 
     public List<Point> monsterList = new LinkedList<>();
 
-    MonsterSprite[] monsterSprites = new MonsterSprite[20];
+    MonsterSprite[] monsterSprites = new MonsterSprite[numMonsters];
 
     public Monster(int scalingFactor){
         mapDimension = Map.getInstance().getDimension();
-        for(int j = 0; j < 20; j++){
+        for(int j = 0; j < numMonsters; j++){
             int x = random.nextInt(mapDimension);
             int y = random.nextInt(mapDimension);
             monsterSprites[j] = new MonsterSprite(x,y,scalingFactor);

@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Map {
 	private static final int DIMENSION = 20;
-	private final int NUM_PIRATES = 10;
+	private final int NUM_PIRATES = 7;
 	private final int NUM_ISLANDS = 40;
 	private final int NUM_RUM_BOTTLES = 10;
 	private int[][] map = new int[DIMENSION][DIMENSION];
@@ -75,7 +75,8 @@ public class Map {
 	}
 
 	public void updateCell(int x, int y, int type) {
-		map[y][x] = type;
+        if (x >= 0 && y >= 0 && x < map[0].length && y < map.length)
+		    map[y][x] = type;
 	}
 
 	public boolean isOcean(int x, int y) {

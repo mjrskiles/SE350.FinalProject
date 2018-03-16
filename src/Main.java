@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
+import java.awt.*;
+import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -149,13 +151,18 @@ public class Main extends Application {
         rumImageView.setX(x*scalingFactor);
         rumImageView.setY(y*scalingFactor);
         root.getChildren().add(rumImageView);
-
     }
 
-	private void createPirate(int x, int y) {
-		pirateFactory = factoryGenerator.getRandomFactory();
-		PirateShip pirate = pirateFactory.createPirateShip(ship, x, y);
-		pirates.add(pirate);
+	private void createPirates() {
+        for(int y = 0; y < dimension; y++) {
+            for (int x = 0; x < dimension; x++) {
+                if (map.getMap()[y][x] == CellTypes.pirate) {
+                    pirateFactory = factoryGenerator.getRandomFactory();
+                    PirateShip pirate = pirateFactory.createPirateShip(ship, x, y);
+                    pirates.add(pirate);
+                }
+            }
+        }
 	}
 
 	/*
@@ -189,9 +196,6 @@ public class Main extends Application {
                         // the tile will be "underneath" the pirate since it is added to the tree later
                         rect.setFill(Color.PALETURQUOISE);
                         root.getChildren().add(rect);
-                        createPirate(x, y);
-                        // Because navigation relies on cell types
-                        map[y][x] = CellTypes.ocean;
                         break;
                     case CellTypes.treasure:
                         addTreasureImage(root,x,y);
@@ -223,6 +227,7 @@ public class Main extends Application {
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("Ocean");
 			drawMap(map.getMap(), root); // everything else is rendered before pirate
+            createPirates();
 			addPirates(root); // just below ship's Z-index
 			loadShipImage(root); // highest level Z-index
 

@@ -32,8 +32,8 @@ public class DrunkenStrategy implements PursuitStrategy {
             //prevent an infinite loop. If all directions have been tried, do nothing.
             direction = (direction + 1 + 4) % 4;
             tried += 1;
-        } while (tried < 4 && !map.isOcean(next.x, next.y));
-        if (!map.isOcean(next.x, next.y)) {
+        } while (tried < 4 && !map.canEnter(next.x, next.y));
+        if (!map.canEnter(next.x, next.y)) {
             next = currentLocation;
         }
         return next;
