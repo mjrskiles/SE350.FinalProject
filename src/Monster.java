@@ -80,14 +80,17 @@ public class Monster implements Runnable {
     int scalingFactor;
     Point ship;
     boolean gameOver;
+    int mapDimension;
 
     public List<Point> monsterList = new LinkedList<>();
 
     MonsterSprite[] monsterSprites = new MonsterSprite[20];
+
     public Monster(int scalingFactor){
+        mapDimension = Map.getInstance().getDimension();
         for(int j = 0; j < 20; j++){
-            int x = random.nextInt(30);
-            int y = random.nextInt(30);
+            int x = random.nextInt(mapDimension);
+            int y = random.nextInt(mapDimension);
             monsterSprites[j] = new MonsterSprite(x,y,scalingFactor);
         }
         this.radius = 10;
@@ -126,11 +129,11 @@ public class Monster implements Runnable {
             for (MonsterSprite monsterSprite : monsterSprites) {
                 // Move X
                 int xMove = monsterSprite.getX() + random.nextInt(3) - 1;
-                if (xMove >= 0 && xMove <= 30)
+                if (xMove >= 0 && xMove <= mapDimension)
                     monsterSprite.setX(xMove);
                 // Move Y
                 int yMove = monsterSprite.getY() + random.nextInt(3) - 1;
-                if (yMove >= 0 && yMove <= 30)
+                if (yMove >= 0 && yMove <= mapDimension)
                     monsterSprite.setY(yMove);
 
                 monsterList.add(new Point(monsterSprite.getX(), monsterSprite.getY()));

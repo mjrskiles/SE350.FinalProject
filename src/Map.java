@@ -4,7 +4,7 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Map {
-	private static final int DIMENSION = 30;
+	private static final int DIMENSION = 20;
 	private final int NUM_PIRATES = 10;
 	private int[][] map = new int[DIMENSION][DIMENSION];
 	private static Map uniqueInstance;
@@ -78,4 +78,6 @@ public class Map {
 			validIndex = true;
 		return (validIndex && map[y][x] == CellTypes.ocean());
 	}
+
+	public int getDimension() { return DIMENSION; }
 }
