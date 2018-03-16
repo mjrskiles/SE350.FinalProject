@@ -15,8 +15,8 @@ import java.util.LinkedList;
 
 
 public class Main extends Application {
-	private final int dimension = 30;
-	private final int scalingFactor = 20;
+	private final int dimension = Map.getInstance().getDimension();
+	static final int scalingFactor = 35; //This field determines the visual size of the cells.
 	private Map map = Map.getInstance();
 	private Ship ship = new Ship(map);
 	private ImageView shipImageView;
