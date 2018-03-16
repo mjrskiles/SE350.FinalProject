@@ -4,10 +4,11 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Map {
-	private static final int DIMENSION = 20;
+	protected static final int DIMENSION = 20;
 	private final int NUM_PIRATES = 10;
-	private int[][] map = new int[DIMENSION][DIMENSION];
+	protected static int[][] map = new int[DIMENSION][DIMENSION];
 	private static Map uniqueInstance;
+	protected static int numberOfIslands = 50;
 
 	private Map() {
 		populateMap();
@@ -45,7 +46,6 @@ public class Map {
 			}
 		}
 
-		int numberOfIslands = 50;
 		Random rand = new Random();
 		Point myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
 
