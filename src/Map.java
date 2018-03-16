@@ -6,7 +6,7 @@ import java.util.Random;
 public class Map {
 	private int dimensions = 30;
 	private int[][] map = new int[dimensions][dimensions];
-	private final int NUM_PIRATES = 2;
+	private final int NUM_PIRATES = 10;
 	private static Map uniqueInstance;
 
 	private Map() {
