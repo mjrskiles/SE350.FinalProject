@@ -4,10 +4,10 @@ import java.awt.Point;
 import java.util.Random;
 
 public class Map {
-	private static final int DIMENSION = 20;
-	private final int NUM_PIRATES = 7;
-	private final int NUM_ISLANDS = 40;
-	private final int NUM_RUM_BOTTLES = 10;
+	protected static final int DIMENSION = 20;
+	protected static final int NUM_PIRATES = 7;
+	protected static final int NUM_ISLANDS = 40;
+	protected final int NUM_RUM_BOTTLES = 10;
 	private int[][] map = new int[DIMENSION][DIMENSION];
 	private static Map uniqueInstance;
     Random rand = new Random();

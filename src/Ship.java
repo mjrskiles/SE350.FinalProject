@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Random;
 
 public class Ship extends Observable {
-	private Point position;
+	private static Point position;
 	private Map map;
 	public boolean hasTreasure = false;
 	public boolean hitPirate = false;
@@ -23,7 +23,7 @@ public class Ship extends Observable {
 		this.map = map;
 	}
 
-	public Point getLocation() {
+	public static Point getLocation() {
 		return position;
 	}
 
