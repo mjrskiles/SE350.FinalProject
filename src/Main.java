@@ -172,15 +172,15 @@ public class Main extends Application {
 				Rectangle rect = new Rectangle(X, Y, W, H);
 				rect.setStroke(Color.BLACK);
 
-				if(map[y][x] == CellTypes.ocean()) {
+				if(map[y][x] == CellTypes.ocean) {
 					rect.setFill(Color.PALETURQUOISE);
 					root.getChildren().add(rect);
 				}
-				else if(map[y][x] == CellTypes.island()) {
+				else if(map[y][x] == CellTypes.island) {
 					// rect.setFill(Color.FORESTGREEN);
 					addIslandImage(root, x, y);
 				}
-				else if(map[y][x] == CellTypes.treasure()) {
+				else if(map[y][x] == CellTypes.treasure) {
 					addTreasureImage(root,x,y);
 				}
 				else { // is a pirate cell
@@ -190,7 +190,7 @@ public class Main extends Application {
 					root.getChildren().add(rect);
 					createPirate(x, y);
 					// Because navigation relies on cell types
-					map[y][x] = CellTypes.ocean();
+					map[y][x] = CellTypes.ocean;
 				}
 			}
 		}

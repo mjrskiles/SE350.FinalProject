@@ -1,21 +1,10 @@
 
 
 public class CellTypes {
-	public static int ocean() {
-		return 0;
-	}
-	
-	public static int island() {
-		return 1;
-	}
-	
-	public static int pirate() {
-		return 2;
-	}
-	
-	public static int treasure() {
-		return 3;
-	}
-
-	public static int monster() { return 4;}
+	public static final int ocean = 0;
+	public static final int island = 1;
+	public static final int pirate = 2;
+	public static final int treasure = 3;
+	public static final int monster = 4;
+	public static final int rum = 5;
 }

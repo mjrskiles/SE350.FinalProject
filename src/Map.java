@@ -31,8 +31,8 @@ public class Map {
 		while(count > 0) {
 			int y = random.nextInt(map.length);
 			int x = random.nextInt(map[0].length);
-			if(map[y][x] == CellTypes.ocean()) {
-				map[y][x] = CellTypes.pirate();
+			if(map[y][x] == CellTypes.ocean) {
+				map[y][x] = CellTypes.pirate;
 				count--;
 			}
 		}
@@ -76,7 +76,7 @@ public class Map {
 		boolean validIndex = false;
 		if (x >= 0 && y >= 0 && x < map[0].length && y < map.length)
 			validIndex = true;
-		return (validIndex && map[y][x] == CellTypes.ocean());
+		return (validIndex && map[y][x] == CellTypes.ocean);
 	}
 
 	public int getDimension() { return DIMENSION; }

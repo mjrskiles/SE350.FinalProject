@@ -15,7 +15,7 @@ public class Ship extends Observable {
 		while(true) {
 			int x = random.nextInt(map.getMap()[0].length);
 			int y = random.nextInt(map.getMap().length);
-			if(map.getMap()[y][x] == CellTypes.ocean()) {
+			if(map.getMap()[y][x] == CellTypes.ocean) {
 				position = new Point(x, y);
 				break;
 			}
@@ -39,19 +39,19 @@ public class Ship extends Observable {
 		final int bounds = grid[0].length;
 
 		if(position.x + 1 < bounds) {
-			if(grid[position.y][position.x + 1] == CellTypes.ocean()) {
+			if(grid[position.y][position.x + 1] == CellTypes.ocean) {
 				move(position.x + 1, position.y);
 			}
-			else if(grid[position.y][position.x + 1] == CellTypes.treasure()) {
+			else if(grid[position.y][position.x + 1] == CellTypes.treasure) {
 				move(position.x + 1, position.y);
 				hasTreasure = true;
 			}
 
-			else if(grid[position.y][position.x + 1] == CellTypes.pirate()){
+			else if(grid[position.y][position.x + 1] == CellTypes.pirate){
 				hitPirate = true;
 			}
 
-			else if(grid[position.y][position.x + 1] == CellTypes.monster()){
+			else if(grid[position.y][position.x + 1] == CellTypes.monster){
 				hitMonster = true;
 			}
 
@@ -63,19 +63,19 @@ public class Ship extends Observable {
 		final int[][] grid = map.getMap();
 
 		if(position.x - 1 >= 0){
-			if(grid[position.y][position.x - 1] == CellTypes.ocean()) {
+			if(grid[position.y][position.x - 1] == CellTypes.ocean) {
 				move(position.x - 1, position.y);
 			}
-			else if(grid[position.y][position.x - 1] == CellTypes.treasure()) {
+			else if(grid[position.y][position.x - 1] == CellTypes.treasure) {
 
 				move(position.x - 1, position.y);
 				hasTreasure = true;
 			}
-			else if(grid[position.y][position.x - 1] == CellTypes.pirate()) {
+			else if(grid[position.y][position.x - 1] == CellTypes.pirate) {
 				hitPirate = true;
 			}
 
-			else if(grid[position.y][position.x - 1] == CellTypes.monster()){
+			else if(grid[position.y][position.x - 1] == CellTypes.monster){
 				hitMonster = true;
 			}
 
@@ -87,19 +87,19 @@ public class Ship extends Observable {
 		final int[][] grid = map.getMap();
 
 		if(position.y - 1 >= 0) {
-			if(grid[position.y - 1][position.x] == CellTypes.ocean()) {
+			if(grid[position.y - 1][position.x] == CellTypes.ocean) {
 				move(position.x, position.y - 1);
 			}
-			else if(grid[position.y - 1][position.x] == CellTypes.treasure()) {
+			else if(grid[position.y - 1][position.x] == CellTypes.treasure) {
 				move(position.x, position.y - 1);
 				hasTreasure = true;
 			}
 
-			else if(grid[position.y - 1][position.x] == CellTypes.pirate()) {
+			else if(grid[position.y - 1][position.x] == CellTypes.pirate) {
 				hitPirate = true;
 			}
 
-			else if(grid[position.y - 1][position.x] == CellTypes.monster()){
+			else if(grid[position.y - 1][position.x] == CellTypes.monster){
 				hitMonster = true;
 			}
 
@@ -112,19 +112,19 @@ public class Ship extends Observable {
 		final int bounds = grid.length;
 
 		if(position.y + 1 < bounds) {
-			if(grid[position.y + 1][position.x] == CellTypes.ocean()) {
+			if(grid[position.y + 1][position.x] == CellTypes.ocean) {
 				move(position.x, position.y + 1);
 			}
-			else if(grid[position.y + 1][position.x] == CellTypes.treasure()) {
+			else if(grid[position.y + 1][position.x] == CellTypes.treasure) {
 				move(position.x, position.y + 1);
 				hasTreasure = true;
 			}
 
-			else if(grid[position.y + 1][position.x] == CellTypes.pirate()) {
+			else if(grid[position.y + 1][position.x] == CellTypes.pirate) {
 				hitPirate = true;
 			}
 
-			else if(grid[position.y + 1][position.x] == CellTypes.monster()){
+			else if(grid[position.y + 1][position.x] == CellTypes.monster){
 				hitMonster = true;
 			}
 

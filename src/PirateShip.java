@@ -30,9 +30,9 @@ public class PirateShip implements Observer {
 
     private void move(int x, int y) {
         //Change the old position back to ocean.
-        map[position.y][position.x] = CellTypes.ocean();
+        map[position.y][position.x] = CellTypes.ocean;
         position.move(x, y);
-        map[y][x] = CellTypes.pirate();
+        map[y][x] = CellTypes.pirate;
         System.out.println("Moved pirate to " + position.x + ", " + position.y);
     }
 
