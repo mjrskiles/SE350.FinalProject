@@ -6,6 +6,7 @@ import java.util.Random;
 public class Map {
 	private static final int DIMENSION = 20;
 	private final int NUM_PIRATES = 10;
+	private final int NUM_ISLANDS = 40;
 	private int[][] map = new int[DIMENSION][DIMENSION];
 	private static Map uniqueInstance;
 
@@ -39,29 +40,23 @@ public class Map {
 	}
 
 	private void populateMap() {
-		for(int[] row : map) {
-			for(int i = 0; i < row.length; i++) {
-				row[i] = 0;
-			}
-		}
-
-		int numberOfIslands = 50;
 		Random rand = new Random();
 		Point myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
 
-		for(int i = 0; i < numberOfIslands; i++){
+		for(int i = 0; i < NUM_ISLANDS; i++){
 			while (map[myPoint.x][myPoint.y] != 0) {
 				rand = new Random();
 				myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
 			}
-			map[myPoint.x][myPoint.y] = 1;
+			map[myPoint.x][myPoint.y] = CellTypes.island;
 			myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
 		}
 
+		//Place the treasure
 		Random randomT = new Random();
 		int rowT = randomT.nextInt(map.length);
 		int colT = randomT.nextInt(map[rowT].length);
-		map[rowT][colT] = 3;
+		map[rowT][colT] = CellTypes.treasure;
 	}
 
 	public int[][] getMap() {

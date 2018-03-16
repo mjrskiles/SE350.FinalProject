@@ -20,11 +20,12 @@ public class Main extends Application {
 	private Map map = Map.getInstance();
 	private Ship ship = new Ship(map);
 	private ImageView shipImageView;
-	private Image islandImage = new Image(getClass().getResource("island.jpg").toExternalForm(),scalingFactor, scalingFactor, true, true);
-	private Image treasureImage = new Image(getClass().getResource("treasure.jpeg").toExternalForm(),scalingFactor,scalingFactor,true,true);
-	private Image win = new Image(getClass().getResource("win.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
-	private Image lose = new Image(getClass().getResource("lose.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
-	private Image lose1 = new Image(getClass().getResource("lose1.png").toExternalForm(),dimension*scalingFactor,dimension*scalingFactor,true,true);
+	private Image islandImage = new Image("file:src/island.jpg",scalingFactor, scalingFactor, true, true);
+	private Image treasureImage = new Image("file:src/treasure.jpeg",scalingFactor,scalingFactor,true,true);
+	private Image win = new Image("file:src/win.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
+	private Image lose = new Image("file:src/lose.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
+	private Image lose1 = new Image("file:src/lose1.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
+    private Image rumImage = new Image("file:src/rum_bottle.jpg",scalingFactor, scalingFactor, true, true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private PirateShipFactoryGenerator factoryGenerator = new PirateShipFactoryGenerator();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory();
