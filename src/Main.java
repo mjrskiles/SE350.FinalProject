@@ -22,21 +22,19 @@ public class Main extends Application {
 	private ImageView shipImageView;
 	private Image islandImage = new Image("file:src/island.jpg",scalingFactor, scalingFactor, true, true);
 	private Image treasureImage = new Image("file:src/treasure.jpeg",scalingFactor,scalingFactor,true,true);
-	private Image win = new Image("file:src/win.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
-	private Image lose = new Image("file:src/lose.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
-	private Image lose1 = new Image("file:src/lose1.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
-    private Image rumImage = new Image("file:src/rum_bottle.jpg",scalingFactor, scalingFactor, true, true);
+    private Image rumImage = new Image("file:src/rum.png",scalingFactor, scalingFactor, true, true);
+    private Image win = new Image("file:src/win.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
+    private Image lose = new Image("file:src/lose.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
+    private Image lose1 = new Image("file:src/lose1.png",dimension*scalingFactor,dimension*scalingFactor,true,true);
 	private List<PirateShip> pirates = new LinkedList<PirateShip>();
 	private PirateShipFactoryGenerator factoryGenerator = new PirateShipFactoryGenerator();
 	private PirateShipFactory pirateFactory = new AveragePirateShipFactory();
-	private boolean stop = false;
+	protected static boolean stop = false;
 	private AnchorPane root;
 	Monster monster;
 	Thread monstersThread;
 
-
-
-	private void startSailing(Scene scene) {
+    private void startSailing(Scene scene) {
 		scene.setOnKeyPressed((e) -> {
 			if (stop == false){
 				switch(e.getCode()) {
@@ -131,20 +129,28 @@ public class Main extends Application {
 		root.getChildren().add(shipImageView);
 	}
 
-  private void addIslandImage(AnchorPane root, int x, int y) {
+    private void addIslandImage(AnchorPane root, int x, int y) {
       ImageView islandImageView = new ImageView(islandImage);
       islandImageView.setX(x * scalingFactor);
       islandImageView.setY(y * scalingFactor);
       root.getChildren().add(islandImageView);
-  }
+    }
   
-  private void addTreasureImage(AnchorPane root, int x, int y) {
-		ImageView treasureImageView = new ImageView(treasureImage);
-		treasureImageView.setX(x*scalingFactor);
-		treasureImageView.setY(y*scalingFactor);
-		root.getChildren().add(treasureImageView);
-		
-	}
+    private void addTreasureImage(AnchorPane root, int x, int y) {
+        ImageView treasureImageView = new ImageView(treasureImage);
+        treasureImageView.setX(x*scalingFactor);
+        treasureImageView.setY(y*scalingFactor);
+        root.getChildren().add(treasureImageView);
+
+    }
+
+    private void addRumImage(AnchorPane root, int x, int y) {
+        ImageView rumImageView = new ImageView(rumImage);
+        rumImageView.setX(x*scalingFactor);
+        rumImageView.setY(y*scalingFactor);
+        root.getChildren().add(rumImageView);
+
+    }
 
 	private void createPirate(int x, int y) {
 		pirateFactory = factoryGenerator.getRandomFactory();
@@ -173,26 +179,37 @@ public class Main extends Application {
 				Rectangle rect = new Rectangle(X, Y, W, H);
 				rect.setStroke(Color.BLACK);
 
-				if(map[y][x] == CellTypes.ocean) {
-					rect.setFill(Color.PALETURQUOISE);
-					root.getChildren().add(rect);
-				}
-				else if(map[y][x] == CellTypes.island) {
-					// rect.setFill(Color.FORESTGREEN);
-					addIslandImage(root, x, y);
-				}
-				else if(map[y][x] == CellTypes.treasure) {
-					addTreasureImage(root,x,y);
-				}
-				else { // is a pirate cell
-					// create ocean tile anyways
-					// the tile will be "underneath" the pirate since it is added to the tree later
-					rect.setFill(Color.PALETURQUOISE);
-					root.getChildren().add(rect);
-					createPirate(x, y);
-					// Because navigation relies on cell types
-					map[y][x] = CellTypes.ocean;
-				}
+				int cell = map[y][x];
+				switch (cell) {
+                    case CellTypes.island:
+                        addIslandImage(root, x, y);
+                        break;
+                    case CellTypes.pirate:
+                        // create ocean tile anyways
+                        // the tile will be "underneath" the pirate since it is added to the tree later
+                        rect.setFill(Color.PALETURQUOISE);
+                        root.getChildren().add(rect);
+                        createPirate(x, y);
+                        // Because navigation relies on cell types
+                        map[y][x] = CellTypes.ocean;
+                        break;
+                    case CellTypes.treasure:
+                        addTreasureImage(root,x,y);
+                        break;
+                    case CellTypes.rum:
+                        //Draw ocean behind the rum bottle
+                        rect.setFill(Color.PALETURQUOISE);
+                        root.getChildren().add(rect);
+
+                        addRumImage(root, x, y);
+                        break;
+
+                    default:  //Default case is ocean
+                    case CellTypes.ocean:
+                        rect.setFill(Color.PALETURQUOISE);
+                        root.getChildren().add(rect);
+                        break;
+                }
 			}
 		}
 	}

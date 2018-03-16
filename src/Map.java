@@ -7,8 +7,10 @@ public class Map {
 	private static final int DIMENSION = 20;
 	private final int NUM_PIRATES = 10;
 	private final int NUM_ISLANDS = 40;
+	private final int NUM_RUM_BOTTLES = 10;
 	private int[][] map = new int[DIMENSION][DIMENSION];
 	private static Map uniqueInstance;
+    Random rand = new Random();
 
 	private Map() {
 		populateMap();
@@ -24,6 +26,7 @@ public class Map {
 			return uniqueInstance;
 		}
 	}
+
 	/*
 	* Pirates will be added to the map after the rest of it is generated.
 	*/
@@ -39,24 +42,32 @@ public class Map {
 		}
 	}
 
-	private void populateMap() {
-		Random rand = new Random();
-		Point myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
+	private Point getRandomOceanCell() {
+	    int x, y;
 
+        do {
+            x = rand.nextInt(DIMENSION);
+            y = rand.nextInt(DIMENSION);
+        } while (!isOcean(x, y));
+
+        return new Point(x, y);
+    }
+
+	private void populateMap() {
+	    //Place the islands
 		for(int i = 0; i < NUM_ISLANDS; i++){
-			while (map[myPoint.x][myPoint.y] != 0) {
-				rand = new Random();
-				myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
-			}
-			map[myPoint.x][myPoint.y] = CellTypes.island;
-			myPoint = new Point(rand.nextInt(DIMENSION), rand.nextInt(DIMENSION));
+			Point p = getRandomOceanCell();
+			updateCell(p.x, p.y, CellTypes.island);
 		}
 
+		for(int i = 0; i < NUM_RUM_BOTTLES; i++) {
+		    Point p = getRandomOceanCell();
+		    updateCell(p.x, p.y, CellTypes.rum);
+        }
+
 		//Place the treasure
-		Random randomT = new Random();
-		int rowT = randomT.nextInt(map.length);
-		int colT = randomT.nextInt(map[rowT].length);
-		map[rowT][colT] = CellTypes.treasure;
+        Point p = getRandomOceanCell();
+		updateCell(p.x, p.y, CellTypes.treasure);
 	}
 
 	public int[][] getMap() {
@@ -74,5 +85,18 @@ public class Map {
 		return (validIndex && map[y][x] == CellTypes.ocean);
 	}
 
+    public boolean isRum(int x, int y) {
+        boolean validIndex = false;
+        if (x >= 0 && y >= 0 && x < map[0].length && y < map.length)
+            validIndex = true;
+        return (validIndex && map[y][x] == CellTypes.rum);
+    }
+
+	// Returns true if a ship or pirate ship is allowed to enter this cell
+	public boolean canEnter(int x, int y) {
+	    return isOcean(x, y) || isRum(x, y);
+    }
+
 	public int getDimension() { return DIMENSION; }
+
 }
