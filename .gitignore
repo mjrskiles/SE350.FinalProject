@@ -3,3 +3,4 @@
 .DS_STORE
 out/production/SE.FinalProject/*
 ./bin/*
+/bin/

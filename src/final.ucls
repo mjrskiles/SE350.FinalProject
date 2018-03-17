@@ -37,7 +37,7 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="Ship" project="Lab 2" file="/Lab 2/src/Ship.java" binary="false" 
+  <class id="5" language="java" name="SoberColumbusShip" project="Lab 2" file="/Lab 2/src/SoberColumbusShip.java" binary="false"
     corner="BOTTOM_RIGHT">    
     <position height="-1" width="-1" x="1739" y="-405"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 

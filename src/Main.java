@@ -1,8 +1,6 @@
 import javafx.application.Application;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.paint.Color;
@@ -10,8 +8,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 
-import java.awt.*;
-import java.util.HashMap;
 import java.util.List;
 import java.util.LinkedList;
 
@@ -20,7 +16,7 @@ public class Main extends Application {
 	private final int dimension = Map.getInstance().getDimension();
 	static final int scalingFactor = 35; //This field determines the visual size of the cells.
 	protected static Map map = Map.getInstance();
-	private Ship ship = new Ship(map);
+	private Ship ship = new SoberColumbusShip(map);
 	private ImageView shipImageView;
 	private Image islandImage = new Image("file:src/island.jpg",scalingFactor, scalingFactor, true, true);
 	private Image treasureImage = new Image("file:src/treasure.jpeg",scalingFactor,scalingFactor,true,true);
@@ -62,8 +58,9 @@ public class Main extends Application {
 				monster.getShipPoint(ship.getLocation());
 				if (monster.gameOver) checkMonster();
 
-				if (map.getMap()[ship.getLocation().x][ship.getLocation().y] == CellTypes.rum){
+				if (map.getMap()[ship.getLocation().y][ship.getLocation().x] == CellTypes.rum){
 					// make ship drunken
+                    ship = new ShipDrunk(ship);
 				}
 
 			}
@@ -73,7 +70,7 @@ public class Main extends Application {
 	}
 
 	private void checkTreasure() {
-		if (ship.hasTreasure == true){ 
+		if (ship.hasTreasure){
 			stop = true;
 			addWinImage(root);
 			System.out.println("You found the treasure! You win!");
@@ -89,7 +86,7 @@ public class Main extends Application {
 		
 	}
 	private void checkPirate() {
-		if (ship.hitPirate == true){
+		if (ship.hitPirate){
 			stop = true;
 			addLoseImage(root);
 			System.out.println("You've been caught by a pirate! You lose!");

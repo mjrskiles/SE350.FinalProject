@@ -6,7 +6,7 @@ import java.util.Observable;
 
 public class PirateShip implements Observer {
     private Point position;
-    private Ship columbus;
+    protected Ship columbus;
     private int[][] map;
     private PursuitStrategy strategy;
     private ImageView pirateImageView;

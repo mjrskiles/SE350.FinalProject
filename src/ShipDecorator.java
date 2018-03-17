@@ -1,10 +1,10 @@
 /**
  * Created by brennenstenson on 3/16/18.
  */
-public abstract class ShipDecorator implements ShipInterface{
-    protected ShipInterface decoratedShip;
+public abstract class ShipDecorator extends Ship {
+    protected Ship decoratedShip;
 
-    public ShipDecorator(ShipInterface decoratedShip){
+    public ShipDecorator(Ship decoratedShip){
         this.decoratedShip = decoratedShip;
     }
 
