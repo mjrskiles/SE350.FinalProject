@@ -7,8 +7,4 @@ public abstract class ShipDecorator extends Ship {
     public ShipDecorator(Ship decoratedShip){
         this.decoratedShip = decoratedShip;
     }
-
-    public void move(int x, int y){
-        decoratedShip.move(x,y);
-    }
 }

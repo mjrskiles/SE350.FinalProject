@@ -15,6 +15,7 @@ public class Ship extends Observable {
     Point getLocation() {
         return position;
     }
+
     void move(int x, int y) {}
     void goEast() {}
     void goWest() {}

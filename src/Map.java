@@ -6,7 +6,7 @@ import java.util.Random;
 public class Map {
 	protected static final int DIMENSION = 20;
 	protected static final int NUM_PIRATES = 7;
-	protected static final int NUM_ISLANDS = 40;
+	protected static final int NUM_ISLANDS = 30;
 	protected final int NUM_RUM_BOTTLES = 10;
 	private int[][] map = new int[DIMENSION][DIMENSION];
 	private static Map uniqueInstance;
@@ -58,6 +58,7 @@ public class Map {
 		for(int i = 0; i < NUM_ISLANDS; i++){
 			Point p = getRandomOceanCell();
 			updateCell(p.x, p.y, CellTypes.island);
+			System.out.println("Island added at " + p.x + ", " + p.y);
 		}
 
 		for(int i = 0; i < NUM_RUM_BOTTLES; i++) {
