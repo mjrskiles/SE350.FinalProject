@@ -3,9 +3,9 @@ import java.awt.Point;
 import java.util.Observable;
 import java.util.Random;
 
-public class Ship extends Observable {
+public class Ship extends Observable implements ShipInterface{
 	protected static Point position;
-	protected Map map;
+	protected static Map map;
 	public boolean hasTreasure = false;
 	public boolean hitPirate = false;
 	public boolean hitMonster = false;
@@ -29,7 +29,8 @@ public class Ship extends Observable {
 		return position;
 	}
 
-	protected void move(int x, int y) {
+	@Override
+	public void move(int x, int y) {
 		position = new Point(x, y);
 		setChanged();
 		notifyObservers();

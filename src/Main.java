@@ -62,6 +62,10 @@ public class Main extends Application {
 				monster.getShipPoint(ship.getLocation());
 				if (monster.gameOver) checkMonster();
 
+				if (map.getMap()[ship.getLocation().x][ship.getLocation().y] == CellTypes.rum){
+					// make ship drunken
+				}
+
 			}
 
 		});

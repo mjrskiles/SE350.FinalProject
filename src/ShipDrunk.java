@@ -5,8 +5,16 @@ import java.util.Random;
  * Created by brennenstenson on 3/16/18.
  */
 
-public class ShipDrunk extends Ship{
+public class ShipDrunk extends ShipDecorator{
+    protected static Point position = Ship.position;
+    protected static Map map = Ship.map;
+    public boolean hasTreasure = false;
+    public boolean hitPirate = false;
+    public boolean hitMonster = false;
 
+    public ShipDrunk (ShipInterface decoratedShip){
+        super(decoratedShip);
+    }
     boolean isRandom = false;
 
 
